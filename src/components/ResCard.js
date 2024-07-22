@@ -4,7 +4,6 @@ import { CDN_URL } from "../utils/constants";
 const ResCard = (props) => {
     const { resData } = props;
     const {cloudinaryImageId,name,cuisines,sla,costForTwo,avgRating} = resData?.info;
-    console.log(resData);
     return (
       <div className="res-card" style={{ backgroundColor: "#f0f0f0" }}>
         <img

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { API_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
+import restaurants from "../utils/mockdata";
 
 const Body = () => {
   const [res, setRes] = useState([]);
@@ -15,7 +16,7 @@ const Body = () => {
   const fetchData = async () => {
     const data = await fetch(API_URL);
     const json = await data.json();
-    const restaurantData =  json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+    const restaurantData =  json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || restaurants;
     setRes(restaurantData);
     setFilteredRest(restaurantData);
   };
