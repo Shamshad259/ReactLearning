@@ -4,6 +4,7 @@ import Shimmer from "./Shimmer";
 import { API_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import restaurants from "../utils/mockdata";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   const [res, setRes] = useState([]);
@@ -16,20 +17,32 @@ const Body = () => {
   const fetchData = async () => {
     const data = await fetch(API_URL);
     const json = await data.json();
-    const restaurantData =  json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || restaurants;
+    const restaurantData =
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants || restaurants;
     setRes(restaurantData);
     setFilteredRest(restaurantData);
   };
 
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false) {
+    return (
+      <h1>
+        Oops...Seems like you are offline...Check your internet connection
+      </h1>
+    );
+  }
+
   if (res?.length === 0) {
     return <Shimmer />;
   }
+
   return (
     <div className="body">
       <div className="filter-res">
         <div className="search-container">
           <input
-            type="test"
+            type="text"
             className="search-input"
             value={searchText}
             placeholder="Search..."
@@ -65,7 +78,14 @@ const Body = () => {
 
       <div className="res-container">
         {filteredRest.map((restaurant) => {
-          return <Link to={"/restaurant/"+restaurant.info.id} key={restaurant.info.id}><ResCard resData={restaurant} /></Link>;
+          return (
+            <Link
+              to={"/restaurant/" + restaurant.info.id}
+              key={restaurant.info.id}
+            >
+              <ResCard resData={restaurant} />
+            </Link>
+          );
         })}
       </div>
     </div>
