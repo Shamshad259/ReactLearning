@@ -39,18 +39,18 @@ const Body = () => {
 
   return (
     <div className="body">
-      <div className="filter-res">
+      <div className="filter-res flex justify-between px-10 mb-8">
         <div className="search-container">
           <input
             type="text"
-            className="search-input"
+            className="search-input mr-4 px-2 rounded-lg border-2 border-solid border-black"
             value={searchText}
             placeholder="Search..."
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
           ></input>
-          <button
+          <button className="bg-green-400 px-4 rounded-lg py-1"
             onClick={() => {
               const filteredRes = res.filter((restaurant) =>
                 restaurant.info.name
@@ -64,7 +64,7 @@ const Body = () => {
           </button>
         </div>
         <button
-          className="filter-btn"
+          className="filter-btn shadow-black shadow-md px-4 py-1 rounded-lg font-bold"
           onClick={() => {
             const filteredRes = res.filter(
               (restaurant) => restaurant.info.avgRating > 4.5
@@ -76,7 +76,7 @@ const Body = () => {
         </button>
       </div>
 
-      <div className="res-container">
+      <div className="res-container flex flex-wrap justify-center">
         {filteredRest.map((restaurant) => {
           return (
             <Link
